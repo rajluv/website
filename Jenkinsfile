@@ -16,6 +16,8 @@ pipeline {
             steps {
                 // Build and publish website on port 82 if commit is made to master branch
                 script {
+                    sh 'docker stop website-container'
+                    sh 'docker rm website-container'
                     sh 'docker build -t website-builder -f Dockerfile .'
                     sh 'docker run -d -p 82:80 --name website-container website-builder'
                 }
